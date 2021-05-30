@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
-    @State var emojiCount = 4
+    @State var emojis = ["🐶","🐱","🐭","🐹","🐰","🐻","🦊","🐼","🐨","🐯","🦁","🐮","🐷","🐻‍❄️","🐵"].shuffled()
+    @State var emojiCount = 14
     var body: some View {
         VStack {
             Text("Memorize!")
@@ -25,33 +25,61 @@ struct ContentView: View {
             }
             .foregroundColor(.red)
             Spacer()
-            HStack {
-                Spacer()
+            HStack(alignment: .lastTextBaseline) {
+                theme1
+                theme2
+                theme3
             }
             .font(.largeTitle)
-            .padding(.horizontal)
         }
         .padding(.horizontal)
     }
     
-    var remove: some View {
-        Button {
-            if emojiCount > 1 {
-                emojiCount -= 1
+    var theme1: some View {
+        VStack {
+            Button {
+                emojis = ["🐶","🐱","🐭","🐹","🐰","🐻","🦊","🐼","🐨","🐯","🦁","🐮","🐷","🐻‍❄️","🐵"].shuffled()
+                emojiCount = 14
+            } label: {
+                VStack {
+                    Image(systemName: "tortoise")
+                        .font(.largeTitle)
+                    Text("Animals")
+                        .font(.subheadline)
+                }
             }
-        } label: {
-            Image(systemName: "minus.circle")
         }
+        .padding(.horizontal)
     }
     
-    var add: some View {
+    var theme2: some View {
         Button {
-            if emojiCount < emojis.count {
-                emojiCount += 1
-            }
+            emojis = ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉","🥏","🎱","🏓","⛳️","🥊","🥋","🏸","🏏","⛸","🥌","🥍","🏑","🏒"].shuffled()
+            emojiCount = 20
         } label: {
-            Image(systemName: "plus.circle")
+            VStack {
+                Image(systemName: "sportscourt")
+                    .font(.largeTitle)
+                Text("Sports")
+                    .font(.subheadline)
+            }
         }
+        .padding(.horizontal)
+    }
+    
+    var theme3: some View {
+        Button {
+            emojis = ["☀️", "🌤", "⛅️", "🌥", "☁️", "🌦", "🌧", "⛈", "🌩", "🌨", "❄️", "🌈"].shuffled()
+            emojiCount = 12
+        } label: {
+            VStack {
+                Image(systemName: "cloud.sun")
+                    .font(.largeTitle)
+                Text("Weather")
+                    .font(.subheadline)
+            }
+        }
+        .padding(.horizontal)
     }
 }
 
@@ -78,6 +106,8 @@ struct CardView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+        ContentView()
+            .previewDevice("iPad Air (4th generation)")
         ContentView()
             .preferredColorScheme(.dark)
     }
