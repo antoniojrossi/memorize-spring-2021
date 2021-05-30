@@ -23,9 +23,7 @@ struct ContentView: View {
             .foregroundColor(.red)
             Spacer()
             HStack {
-                remove
                 Spacer()
-                add
             }
             .font(.largeTitle)
             .padding(.horizontal)
