@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var emojis = ["🐶","🐱","🐭","🐹","🐰","🐻","🦊","🐼","🐨","🐯","🦁","🐮","🐷","🐻‍❄️","🐵"].shuffled()
-    @State var emojiCount = 14
+    @State var emojiCount = Int.random(in: 4...15)
     var body: some View {
         VStack {
             Text("Memorize!")
@@ -39,7 +39,7 @@ struct ContentView: View {
         VStack {
             Button {
                 emojis = ["🐶","🐱","🐭","🐹","🐰","🐻","🦊","🐼","🐨","🐯","🦁","🐮","🐷","🐻‍❄️","🐵"].shuffled()
-                emojiCount = 14
+                emojiCount = Int.random(in: 4...emojis.count)
             } label: {
                 VStack {
                     Image(systemName: "tortoise")
@@ -55,7 +55,7 @@ struct ContentView: View {
     var theme2: some View {
         Button {
             emojis = ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉","🥏","🎱","🏓","⛳️","🥊","🥋","🏸","🏏","⛸","🥌","🥍","🏑","🏒"].shuffled()
-            emojiCount = 20
+            emojiCount = Int.random(in: 4...emojis.count)
         } label: {
             VStack {
                 Image(systemName: "sportscourt")
@@ -70,7 +70,7 @@ struct ContentView: View {
     var theme3: some View {
         Button {
             emojis = ["☀️", "🌤", "⛅️", "🌥", "☁️", "🌦", "🌧", "⛈", "🌩", "🌨", "❄️", "🌈"].shuffled()
-            emojiCount = 12
+            emojiCount = Int.random(in: 4...emojis.count)
         } label: {
             VStack {
                 Image(systemName: "cloud.sun")
