@@ -12,6 +12,9 @@ struct ContentView: View {
     @State var emojiCount = 4
     var body: some View {
         VStack {
+            Text("Memorize!")
+                .font(.largeTitle)
+                .padding(.vertical)
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
                     ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
@@ -75,7 +78,7 @@ struct CardView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }
