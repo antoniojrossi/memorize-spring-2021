@@ -23,8 +23,8 @@ class EmojiMemoryGame: ObservableObject {
             EmojiTheme<String>(name: "Weather", color: .blue, emojis: ["☀️", "🌤", "⛅️", "🌥", "☁️", "🌦", "🌧", "⛈", "🌩", "🌨", "❄️", "🌈"]),
             EmojiTheme<String>(name: "Fruits", color: .purple, numberOfPairOfCards: 6, emojis: ["🥝","🥥","🍍","🥭","🍑","🍒","🍓","🍇","🍉","🍌","🍋","🍊","🍐","🍎"]),
             EmojiTheme<String>(name: "Vehicles", color: .red, emojis: ["🚗","🚕","🚙","🚌","🚎","🚓","🚑","🚒","🚐","🚚","🚛"]),
-            EmojiTheme<String>(name: "Faces", color: .black, emojis: ["😃","😁","😅","😂","🤣","☺️"]),
-            EmojiTheme<String>(name: "Faces", color: .orange, emojis: ["😈","🎃","👻","💀","🦇","🕷", "🍬"])
+            EmojiTheme<String>(name: "Faces", color: .yellow, emojis: ["😃","😁","😅","😂","🤣","☺️"]),
+            EmojiTheme<String>(name: "Halloween", color: .orange, emojis: ["😈","🎃","👻","💀","🦇","🕷", "🍬"])
         ]
     )
     
