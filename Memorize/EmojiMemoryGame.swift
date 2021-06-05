@@ -16,15 +16,15 @@ class EmojiMemoryGame: ObservableObject {
     
     static var themes = ThemeManager<EmojiTheme<String>>(
         themes: [
-            EmojiTheme<String>(name: "Animals", color: .brown, emojis: [
+            EmojiTheme<String>(name: "Animals", color: .gradient(startColor: .brown, endColor: .black), emojis: [
                 "🐶","🐱","🐭","🐹","🐰","🐻","🦊","🐼","🐨","🦁","🐻‍❄️","🐵"
             ]),
-            EmojiTheme<String>(name: "Sports", color: .purple, numberOfPairOfCards: 4, emojis: ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉"]),
-            EmojiTheme<String>(name: "Weather", color: .blue, emojis: ["☀️", "🌤", "⛅️", "🌥", "☁️", "🌦", "🌧", "⛈", "🌩", "🌨", "❄️", "🌈"]),
-            EmojiTheme<String>(name: "Fruits", color: .green, numberOfPairOfCards: 6, emojis: ["🥝","🥥","🍍","🥭","🍑","🍒","🍓","🍇","🍉","🍌","🍋","🍊","🍐","🍎"]),
-            EmojiTheme<String>(name: "Vehicles", color: .red, emojis: ["🚗","🚕","🚙","🚌","🚎","🚓","🚑","🚒","🚐","🚚","🚛"]),
-            EmojiTheme<String>(name: "Faces", color: .yellow, emojis: ["😃","😁","😅","😂","🤣","☺️"]),
-            EmojiTheme<String>(name: "Halloween", color: .orange, emojis: ["😈","🎃","👻","💀","🦇","🕷", "🍬"])
+            EmojiTheme<String>(name: "Sports", color: .gradient(startColor: .black, endColor: .blue), numberOfPairOfCards: .min, emojis: ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉"]),
+            EmojiTheme<String>(name: "Weather", color: .gradient(startColor: .purple, endColor: .blue), emojis: ["☀️", "🌤", "⛅️", "🌥", "☁️", "🌦", "🌧", "⛈", "🌩", "🌨", "❄️", "🌈"]),
+            EmojiTheme<String>(name: "Fruits", color: .gradient(startColor: .green, endColor: .yellow), numberOfPairOfCards: .fixed(6), emojis: ["🥝","🥥","🍍","🥭","🍑","🍒","🍓","🍇","🍉","🍌","🍋","🍊","🍐","🍎"]),
+            EmojiTheme<String>(name: "Vehicles", color: .solid(.red), numberOfPairOfCards: .max, emojis: ["🚗","🚕","🚙","🚌","🚎","🚓","🚑","🚒","🚐","🚚","🚛"]),
+            EmojiTheme<String>(name: "Faces", color: .gradient(startColor: .yellow, endColor: .orange), emojis: ["😃","😁","😅","😂","🤣","☺️"]),
+            EmojiTheme<String>(name: "Halloween", color: .solid(.orange), numberOfPairOfCards: .randon, emojis: ["😈","🎃","👻","💀","🦇","🕷", "🍬", "🍭"])
         ]
     )
     
@@ -34,8 +34,8 @@ class EmojiMemoryGame: ObservableObject {
         return model.cards
     }
     
-    var currentTheme: Theme {
-        return Theme(EmojiMemoryGame.themes.currentTheme)
+    var currentTheme: CardTheme {
+        return CardTheme(EmojiMemoryGame.themes.currentTheme)
     }
     
     var score: Int {
@@ -53,29 +53,41 @@ class EmojiMemoryGame: ObservableObject {
         model = EmojiMemoryGame.createMemoryGame(with: EmojiMemoryGame.themes.currentTheme)
     }
     
-    struct Theme {
+    struct CardTheme {
+        static func adapt(_ color: EmojiTheme<String>.Color) -> Color {
+            switch color {
+            case .blue:
+                return Color.blue
+            case .brown:
+                return Color.init(UIColor.brown)
+            case .green:
+                return Color.green
+            case .red:
+                return Color.red
+            case .orange:
+                return Color.orange
+            case .purple:
+                return Color.purple
+            case .black:
+                return Color.black
+            case .yellow:
+                return Color.yellow
+            }
+        }
+        
         let name: String
-        let color: Color
+        let startColor: Color
+        let endColor: Color
         
         init(_ emojiTheme: EmojiTheme<String>) {
             self.name = emojiTheme.name
             switch emojiTheme.color {
-            case .blue:
-                self.color = Color.blue
-            case .brown:
-                self.color = Color.init(UIColor.brown)
-            case .green:
-                self.color = Color.green
-            case .red:
-                self.color = Color.red
-            case .orange:
-                self.color = Color.orange
-            case .purple:
-                self.color = Color.purple
-            case .black:
-                self.color = Color.black
-            case .yellow:
-                self.color = Color.yellow
+            case .solid(let color):
+                self.startColor = CardTheme.adapt(color)
+                self.endColor = CardTheme.adapt(color)
+            case .gradient(let startColor, let endColor):
+                self.startColor = CardTheme.adapt(startColor)
+                self.endColor = CardTheme.adapt(endColor)
             }
         }
     }

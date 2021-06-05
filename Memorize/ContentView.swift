@@ -16,7 +16,7 @@ struct ContentView: View {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
                     ForEach(viewModel.cards) { card in
-                        CardView(card: card)
+                        CardView(card: card, theme: viewModel.currentTheme)
                             .aspectRatio(2/3, contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
                             .onTapGesture {
                                 viewModel.choose(card)
@@ -24,7 +24,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .foregroundColor(viewModel.currentTheme.color)
+            .foregroundColor(viewModel.currentTheme.startColor)
             .padding(.horizontal)
         }
     }
@@ -33,7 +33,7 @@ struct ContentView: View {
         ZStack{
             Text("\(viewModel.score)")
                 .font(.largeTitle)
-                .foregroundColor(viewModel.currentTheme.color)
+                .foregroundColor(viewModel.currentTheme.startColor)
             HStack {
                 Text(viewModel.currentTheme.name)
                     .font(.title)
@@ -51,6 +51,7 @@ struct ContentView: View {
 
 struct CardView: View {
     let card: MemoryGame<String>.Card
+    let theme: EmojiMemoryGame.CardTheme
 
     var body: some View {
         ZStack {
@@ -62,7 +63,7 @@ struct CardView: View {
             } else if card.isMatched {
                 shape.opacity(0)
             } else {
-                shape.fill()
+                shape.fill(LinearGradient(gradient: Gradient(colors: [theme.startColor, theme.endColor]), startPoint: .topLeading, endPoint: .bottomTrailing))
             }
         }
     }
