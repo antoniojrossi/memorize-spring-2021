@@ -9,10 +9,14 @@ import Foundation
 
 struct ThemeManager<Theme> {
     let themes: Array<Theme>
-    let currentTheme: Theme
+    var currentTheme: Theme
     
     init(themes: Array<Theme>) {
         self.themes = themes.shuffled()
+        self.currentTheme = themes.randomElement()!
+    }
+    
+    mutating func randomizeCurrentTheme() {
         self.currentTheme = themes.randomElement()!
     }
 }

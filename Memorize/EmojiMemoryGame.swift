@@ -14,14 +14,14 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
     
-    static let themes = ThemeManager<EmojiTheme<String>>(
+    static var themes = ThemeManager<EmojiTheme<String>>(
         themes: [
             EmojiTheme<String>(name: "Animals", color: .brown, emojis: [
                 "🐶","🐱","🐭","🐹","🐰","🐻","🦊","🐼","🐨","🦁","🐻‍❄️","🐵"
             ]),
-            EmojiTheme<String>(name: "Sports", color: .red, numberOfPairOfCards: 4, emojis: ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉"]),
+            EmojiTheme<String>(name: "Sports", color: .purple, numberOfPairOfCards: 4, emojis: ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉"]),
             EmojiTheme<String>(name: "Weather", color: .blue, emojis: ["☀️", "🌤", "⛅️", "🌥", "☁️", "🌦", "🌧", "⛈", "🌩", "🌨", "❄️", "🌈"]),
-            EmojiTheme<String>(name: "Fruits", color: .purple, numberOfPairOfCards: 6, emojis: ["🥝","🥥","🍍","🥭","🍑","🍒","🍓","🍇","🍉","🍌","🍋","🍊","🍐","🍎"]),
+            EmojiTheme<String>(name: "Fruits", color: .green, numberOfPairOfCards: 6, emojis: ["🥝","🥥","🍍","🥭","🍑","🍒","🍓","🍇","🍉","🍌","🍋","🍊","🍐","🍎"]),
             EmojiTheme<String>(name: "Vehicles", color: .red, emojis: ["🚗","🚕","🚙","🚌","🚎","🚓","🚑","🚒","🚐","🚚","🚛"]),
             EmojiTheme<String>(name: "Faces", color: .yellow, emojis: ["😃","😁","😅","😂","🤣","☺️"]),
             EmojiTheme<String>(name: "Halloween", color: .orange, emojis: ["😈","🎃","👻","💀","🦇","🕷", "🍬"])
@@ -42,6 +42,11 @@ class EmojiMemoryGame: ObservableObject {
     
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
+    }
+    
+    func newGame() {
+        EmojiMemoryGame.themes.randomizeCurrentTheme()
+        model = EmojiMemoryGame.createMemoryGame(with: EmojiMemoryGame.themes.currentTheme)
     }
     
     struct Theme {
