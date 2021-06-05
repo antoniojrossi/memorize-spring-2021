@@ -11,7 +11,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
     private var indexOfTheOneAndOnlyFaceUpCard: Int?
     private(set) var score = 0
-    private var previouslySeenCards: Array<Card> = []
+    private var previouslySeenCards: Set<Int> = []
     
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
         cards = Array<Card>()
@@ -34,16 +34,14 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                     cards[potentialMatchIndex].isMatched = true
                     score += 2
                 } else {
-                    if previouslySeenCards.contains(where: { $0.id == potentialMatchIndex }) {
+                    if previouslySeenCards.contains(potentialMatchIndex) {
                         score -= 1
-                    } else {
-                        previouslySeenCards.append(cards[potentialMatchIndex])
                     }
-                    if previouslySeenCards.contains(where: { $0.id == chosenIndex }) {
+                    if previouslySeenCards.contains(chosenIndex) {
                         score -= 1
-                    } else {
-                        previouslySeenCards.append(cards[chosenIndex])
                     }
+                    previouslySeenCards.insert(potentialMatchIndex)
+                    previouslySeenCards.insert(chosenIndex)
                 }
                 indexOfTheOneAndOnlyFaceUpCard = nil
             } else {
